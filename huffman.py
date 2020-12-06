@@ -79,8 +79,7 @@ def huffman_traversal(root_node,tmp_array,f):		# traversal of the tree to genera
 	return
 
 # Read an bmp image into a numpy array
-img = Image.open('tiger.bmp')
-# img = Image.open('pepsi.jpg')
+img = Image.open('pepsi.jpg')
 img=np.array(img)
 
 # convert to grayscale
