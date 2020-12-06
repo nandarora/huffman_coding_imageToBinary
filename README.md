@@ -1,9 +1,8 @@
-# Huffman encoding
+# Permofrmed by Nand Arora for University of Windsor (Data Security and Cryptography)
 
-Performs Huffman encoding for a 2D image 
+This code is to convert image to huffman code. There is another code to convert text to huffman code which stores the result in a binary file. Kindly find that code for the text conversion part of project.
 
-Writes the codes (for each pixel value) in a text file and prints the efficiency of the compression scheme
 
-Change the image name inside the function (replace it with the image location in your system) and run it using python 3
+This program codes (for each pixel value) in a text file: huffcodes.txt
+Change the image name inside the function (replace it with the image location in your system or use tiger.bmp or pepsi.jpg in this file) and run it using python 3
 
-Type 'python huffman.py' in the command line to run the program

@@ -1,6 +1,6 @@
 import numpy as np
-from scipy.misc import imread,imresize
-import matplotlib.pyplot as plt
+from scipy import misc
+from PIL import Image
 from operator import itemgetter, attrgetter
 import queue
 
@@ -21,12 +21,12 @@ class Node:
 			return 1
 		else:
 			return 0
-def rgb2gray(img):
+def togrey(img):
 	gray_img = np.rint(img[:,:,0]*0.2989 + img[:,:,1]*0.5870 + img[:,:,2]*0.1140)
 	gray_img = gray_img.astype(int)
 	return gray_img
 
-def get2smallest(data):			# can be used instead of inbuilt function get(). was not used in  implementation
+def tosmallest(data):			# can be used instead of inbuilt function get(). was not used in  implementation
     first = second = 1;
     fid=sid=0
     for idx,element in enumerate(data):
@@ -79,11 +79,12 @@ def huffman_traversal(root_node,tmp_array,f):		# traversal of the tree to genera
 	return
 
 # Read an bmp image into a numpy array
-img = imread('tiger.bmp')
-img = imresize(img,10)		# resize to 10% (not strictly necessary - done for faster computation)
+img = Image.open('tiger.bmp')
+# img = Image.open('pepsi.jpg')
+img=np.array(img)
 
 # convert to grayscale
-gray_img = rgb2gray(img)
+gray_img = togrey(img)
 
 # compute histogram of pixels
 hist = np.bincount(gray_img.ravel(),minlength=256)
@@ -94,9 +95,9 @@ root_node = tree(probabilities)			# create the tree using the probs.
 tmp_array = np.ones([64],dtype=int)
 huffman_traversal.output_bits = np.empty(256,dtype=int) 
 huffman_traversal.count = 0
-f = open('codes.txt','w')
+f = open('huffcodes.txt','w')
 huffman_traversal(root_node,tmp_array,f)		# traverse the tree and write the codes
-
+f.close()
 input_bits = img.shape[0]*img.shape[1]*8	# calculate number of bits in grayscale 
 compression = (1-np.sum(huffman_traversal.output_bits*hist)/input_bits)*100	# compression rate
 print('Compression is ',compression,' percent')
